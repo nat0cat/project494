@@ -1,7 +1,7 @@
 # CSC494 Project Milestones
 
 ### Milestone 1: Literature Review & Dataset Preparation
-**Deadline:** June 5th 
+**Deadline:** June 12th 
 
 **Goals:**
 * Complete comprehensive literature review
@@ -17,7 +17,7 @@
 ---
 
 ### Milestone 2: Object Detection & Scene Graph Construction
-**Deadline:** June 26th
+**Deadline:** July 3rd
 
 **Goals:**
 * Implement Object Detection Model
@@ -32,7 +32,7 @@
 ---
 
 ### Milestone 3: GNN & Self-Supervised Learning Framework
-**Deadline:** July 17th
+**Deadline:** July 31st
 
 **Goals:**
 * Design GNN Architecture 
@@ -48,7 +48,7 @@
 ---
 
 ### Milestone 4: Training & Evaluation
-**Deadline:** July 31st
+**Deadline:** August 10th
 
 **Goals:**
 * Train models with the full dataset using appropriate parameters (learning rate, regularization, etc.).
@@ -57,7 +57,7 @@
 ---
 
 ### Milestone 5: Final Report
-**Deadline:** August 14th
+**Deadline:** August 24th
 
 **Goals:**
 * Write a full report discussing the project in detail
