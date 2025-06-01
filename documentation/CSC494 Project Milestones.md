@@ -1,7 +1,5 @@
 # CSC494 Project Milestones
 
----
-
 ### Milestone 1: Literature Review & Dataset Preparation
 **Deadline:** June 5th 
 
