@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+# pose estimation network
 class PoseNet(nn.Module):
     def __init__(self):
         super().__init__()
@@ -16,6 +17,7 @@ class PoseNet(nn.Module):
             nn.Linear(64, 6)
         )
 
+    # forward pass
     def forward(self, src, tgt):
         x = torch.cat([src, tgt], dim=1)
         return self.net(x)
