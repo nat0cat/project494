@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from trainer import Trainer
+from utils.trainer import Trainer
 
 ### HELPER FUNCTIONS ###
 
