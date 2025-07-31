@@ -136,6 +136,7 @@ class DepthTrainer(Trainer):
 
         # compute depth map
         disp = self.depth_net(tgt)
+        disp = F.interpolate(disp, size=(224, 224), mode='bilinear', align_corners=True)
         depth = 1 / (disp + 1e-6)
 
         # compute pose estimation
