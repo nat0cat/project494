@@ -19,6 +19,11 @@ transform = {
                     transforms.Resize(size=256),
                     transforms.CenterCrop(size=224),
                     transforms.ToTensor(),
+                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]),
+    "standard" :    transforms.Compose([
+                    transforms.Resize(size=256),
+                    transforms.CenterCrop(size=224),
+                    transforms.ToTensor(),
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
 }
 

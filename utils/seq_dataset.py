@@ -22,8 +22,7 @@ class SeqDataset(Dataset):
                 # structure the data in each group
                 self.samples.append({
                     "src_prev": os.path.join(f_path, files[i - frame_gap]),
-                    "target": os.path.join(f_path, files[i]),
-                    "src_next": os.path.join(f_path, files[i + frame_gap]),
+                    "target": os.path.join(f_path, files[i])
                 })
 
     # returns the number of samples
@@ -37,14 +36,12 @@ class SeqDataset(Dataset):
 
         # reformat data
         tgt = Image.open(sample["target"]).convert("RGB")
-        src1 = Image.open(sample["src_prev"]).convert("RGB")
-        src2 = Image.open(sample["src_next"]).convert("RGB")
+        src = Image.open(sample["src_prev"]).convert("RGB")
 
         # apply transformations if any
         if self.transform:
             tgt = self.transform(tgt)
-            src1 = self.transform(src1)
-            src2 = self.transform(src2)
+            src = self.transform(src)
 
         # return tuple of data
-        return tgt, [src1, src2]
+        return tgt, src
