@@ -1,25 +1,29 @@
 import torch
 import torch.nn.functional as F
-from utils.trainer import Trainer
 from depth_utils import project_3d, pose_vec2mat
 
 ### LOSS FUNCTIONS ###
 
 # structural similarity
 def ssim(img1, img2):
+    # constants for stability
     C1 = 0.01 ** 2
     C2 = 0.03 ** 2
 
+    # compute local mean
     mu1 = F.avg_pool2d(img1, 3, 1, 1)
     mu2 = F.avg_pool2d(img2, 3, 1, 1)
 
+    # compute local variance
     sigma1 = F.avg_pool2d(img1 ** 2, 3, 1, 1) - mu1 ** 2
     sigma2 = F.avg_pool2d(img2 ** 2, 3, 1, 1) - mu2 ** 2
     sigma12 = F.avg_pool2d(img1 * img2, 3, 1, 1) - mu1 * mu2
 
-    ssim_num = (2 * mu1 * mu2 + C1) * (2 * sigma12 + C2)
-    ssim_den = (mu1 ** 2 + mu2 ** 2 + C1) * (sigma1 + sigma2 + C2)
+    # ssim computation
+    ssim_num = (2 * mu1 * mu2 + C1) * (2 * sigma12 + C2)            # numerator
+    ssim_den = (mu1 ** 2 + mu2 ** 2 + C1) * (sigma1 + sigma2 + C2)  # denominator
 
+    # final map in range
     ssim_map = ssim_num / (ssim_den + 1e-7)
     return torch.clamp((1 - ssim_map) / 2, 0, 1)
 
