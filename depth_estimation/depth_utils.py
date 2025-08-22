@@ -73,3 +73,12 @@ def project_3d(depth, intrinsics, pose):
     grid = torch.stack([x, y], dim=-1).view(b, h, w, 2)
 
     return grid
+
+# set image range back to [0, 1] for loss calculations
+def standardize_range(img):
+    # reverse of initial transformation tensors used
+    imagenet_mean = torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1).to(img.device)
+    imagenet_std = torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1).to(img.device)
+
+    # back to [0, 1]
+    return img * imagenet_std + imagenet_mean

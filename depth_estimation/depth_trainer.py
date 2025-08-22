@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from depth_utils import project_3d, pose_vec2mat
+from depth_utils import project_3d, pose_vec2mat, standardize_range
 
 ### LOSS FUNCTIONS ###
 
@@ -81,5 +81,25 @@ def forward_pass(depth_net, pose_net, input_data, device, intrinsics):
     warped = F.grid_sample(src, grid, padding_mode='border', align_corners=True)
 
     return disp, depth, pose, warped
+
+
+# optimal loss for pose training
+def pose_loss_comp(tgt, depth, warped):
+    loss_photo = photometric_loss_l1(tgt, warped)
+    loss_smooth = edge_aware_smoothness(depth, tgt)
+    loss = loss_photo + 0.1 * loss_smooth
+    return loss
+
+# optimal loss for depth training
+def depth_loss_comp(tgt, disp, warped):
+    # set values in range [0,1]
+    tgt_norm = standardize_range(tgt)
+    warped_norm = standardize_range(warped)
+
+    # compute loss values
+    loss_photo = photometric_loss_ssim_l1(tgt_norm, warped_norm)
+    loss_smooth = edge_aware_smoothness(disp, tgt_norm)
+    loss = loss_photo + 0.1 * loss_smooth
+    return loss
 
 
